@@ -3,6 +3,9 @@
 .env.*
 !.env.example
 
+# --- Personal notes ---
+Notes.md
+
 # --- Python ---
 __pycache__/
 *.py[cod]

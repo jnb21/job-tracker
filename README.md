@@ -1,67 +1,141 @@
 # Internship/Job Application Tracker
 
-A CRUD API to track internship and job applications — companies, roles, application status, deadlines, and notes. Doubles as a real tool for tracking actual Summer 2027 applications while building it.
+A full-stack CRUD application for tracking internship and job applications — companies, roles, application status, deadlines, interviews, and notes. Doubles as a real tool for tracking actual Summer 2027 applications while being built.
 
-## Must understand before writing a line of code
+## Table of contents
 
-### HTTP & REST basics
+- [Features](#features)
+- [Tech stack](#tech-stack)
+- [Project structure](#project-structure)
+- [Getting started](#getting-started)
+- [Environment variables](#environment-variables)
+- [Running with Docker](#running-with-docker)
+- [Database migrations](#database-migrations)
+- [API overview](#api-overview)
+- [Testing](#testing)
+- [Roadmap](#roadmap)
+- [License](#license)
 
-- The methods (GET, POST, PUT/PATCH, DELETE) and what "idempotent" means for each
-- Status codes and what they signal (200 vs 201 vs 400 vs 401/403 vs 404 vs 500 — knowing the difference between 401 and 403 alone is a common interview question)
-- Anatomy of a request/response: headers, body, path params vs query params
-- REST conventions: resources as nouns in URLs (`/users/123/orders`, not `/getUserOrders`)
+## Features
 
-### Relational database fundamentals
+- Track applications with company, position, status, dates, and notes
+- Move applications through stages: Saved → Applied → Interview → Offer / Rejected
+- Log interviews per application
+- User authentication (JWT-based)
+- REST API consumed by a React frontend
 
-- Tables, rows, primary keys, foreign keys
-- Core SQL: SELECT/INSERT/UPDATE/DELETE, WHERE, JOIN (at least INNER and LEFT)
-- Basic normalization — enough to avoid duplicating data across tables when you design your schema
-- This matters even though you'll use an ORM — if you can't read the SQL your ORM generates, you can't debug it
+## Tech stack
 
-### Layered architecture (this is where your OOP instincts pay off)
+- **Frontend:** React
+- **Backend:** FastAPI (Python)
+- **Database:** PostgreSQL/MySQL via SQLAlchemy
+- **Migrations:** Alembic
+- **Auth:** JWT
+- **Testing:** pytest
+- **Containerization:** Docker / docker-compose
 
-- Separating routes/controllers (handle HTTP) → services (business logic) → data access (talks to DB)
-- Why: it's the difference between "code that works" and code an interviewer will actually respect. A single 300-line file that does everything is the #1 tell of a first backend project.
+## Project structure
 
-## Learn just-in-time, as you reach each piece
+```
+job-tracker/
+├── app/
+│   ├── main.py         # FastAPI app instance, mounts routers
+│   ├── config.py        # settings loaded from env vars
+│   ├── database.py      # DB engine, session, get_db() dependency
+│   ├── models/           # SQLAlchemy ORM models
+│   ├── schemas/           # Pydantic request/response shapes
+│   ├── routers/            # route handlers, one file per resource
+│   ├── services/             # business logic, called by routers
+│   ├── core/                  # security (JWT/hashing), dependencies
+│   └── tests/
+├── alembic/               # migration scripts
+├── frontend/               # React app
+├── .env.example
+├── requirements.txt
+├── Dockerfile
+└── docker-compose.yml
+```
 
-### Framework-specific (I'd lean FastAPI)
+See `Notes.md` (untracked, local-only) for the full architecture writeup and learning notes behind these decisions.
 
-- Path operations / routing
-- Pydantic models for request/response validation (this is FastAPI's biggest teaching value — it forces you to think in schemas)
-- Dependency injection (FastAPI's `Depends`) — used for things like "give me the current authenticated user" or "give me a DB session"
+## Getting started
 
-### ORM + migrations
+### Prerequisites
 
-- SQLAlchemy models (Python classes mapping to tables)
-- Sessions/transactions — when data actually commits
-- Alembic for migrations — schema changes over time, not just `create_all()` once
+- Python 3.11+
+- Node.js 18+
+- PostgreSQL/MySQL (or use Docker, see below)
 
-### Auth
+### Backend setup
 
-- Password hashing (bcrypt/argon2) — never store plaintext, and understand why
-- JWTs or sessions — how the server knows who's asking on a stateless HTTP request
-- Authentication (who are you) vs authorization (what are you allowed to do) — these are different concerns and get testable in system design interviews
+```bash
+cd app
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env   # fill in your local values
+alembic upgrade head
+uvicorn app.main:app --reload
+```
 
-### Testing
+### Frontend setup
 
-- pytest basics: fixtures, assertions
-- Testing API endpoints against a test database (not your real one)
-- Unit tests (a function in isolation) vs integration tests (a full request through the stack)
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-### Environment & secrets
+## Environment variables
 
-- `.env` files and environment variables — never hardcode DB passwords/API keys
-- Virtual environments (venv or poetry) so dependencies don't leak across projects
+Copy `.env.example` to `.env` and fill in:
 
-### Docker
+| Variable | Description |
+| --- | --- |
+| `DATABASE_URL` | Connection string for the database |
+| `SECRET_KEY` | Secret used to sign JWTs |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | JWT expiry window |
 
-- Image vs container
-- Writing a Dockerfile for your app
-- docker-compose to run your app + Postgres together locally
+## Running with Docker
 
-### Deployment
+```bash
+docker-compose up --build
+```
 
-- What "deployed" actually means: a process running on a server, reachable by URL
-- Environment variables in a hosting platform (Render/Railway/Fly.io)
-- CORS — you'll hit this the moment you test from a browser or frontend
+This starts the API and database together for local development.
+
+## Database migrations
+
+```bash
+alembic revision --autogenerate -m "description of change"
+alembic upgrade head
+```
+
+## API overview
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| POST | `/auth/register` | Create a user account |
+| POST | `/auth/login` | Authenticate and receive a JWT |
+| GET | `/applications` | List the current user's applications |
+| POST | `/applications` | Create a new application |
+| GET | `/applications/{id}` | Get a single application |
+| PATCH | `/applications/{id}` | Update an application |
+| DELETE | `/applications/{id}` | Delete an application |
+
+## Testing
+
+```bash
+pytest
+```
+
+## Roadmap
+
+- [ ] Email reminders before deadlines
+- [ ] Resume tracking per application
+- [ ] AI job description analysis
+- [ ] Dashboard analytics
+
+## License
+
+MIT

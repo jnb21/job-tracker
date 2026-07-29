@@ -1,0 +1,53 @@
+:root {
+  --paper: #EEEBE3;
+  --paper-raised: #F8F6F0;
+  --ink: #22303F;
+  --ink-soft: #4C5F70;
+  --line: #C9C2AF;
+  --line-soft: #DAD4C4;
+
+  --applied: #7C8CA6;
+  --oa: #B9862F;
+  --interview: #2E6D9C;
+  --offer: #3F8F5F;
+  --rejected: #B15C4A;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --radius: 4px;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--interview);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

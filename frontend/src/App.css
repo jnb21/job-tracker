@@ -1,0 +1,456 @@
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* ---------- Header ---------- */
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.page-header__eyebrow {
+  margin: 0 0 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.page-header__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--ink);
+  color: var(--paper-raised);
+}
+
+.btn--primary:hover {
+  background: var(--ink-soft);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.btn--ghost:hover {
+  border-color: var(--ink);
+}
+
+.btn--danger {
+  background: var(--rejected);
+  border-color: var(--rejected);
+  color: #fff;
+}
+
+.btn--danger:hover {
+  filter: brightness(0.92);
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  font-family: var(--font-body);
+  color: var(--ink-soft);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-right: 12px;
+}
+
+.link-btn:hover {
+  color: var(--ink);
+}
+
+.link-btn--danger:hover {
+  color: var(--rejected);
+}
+
+/* ---------- Stats ---------- */
+
+.stats {
+  display: flex;
+  align-items: center;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 28px;
+  margin-bottom: 24px;
+}
+
+.stats__figure {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.stats__number {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.stats__label {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.stats__divider {
+  width: 1px;
+  height: 36px;
+  background: var(--line);
+  margin: 0 20px;
+}
+
+/* ---------- Filter chips ---------- */
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.filter-chip {
+  border: 1px solid var(--line);
+  background: transparent;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  color: var(--ink-soft);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.filter-chip:hover {
+  border-color: var(--ink-soft);
+}
+
+.filter-chip.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper-raised);
+}
+
+.filter-chip__count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  opacity: 0.75;
+}
+
+/* ---------- Ledger table ---------- */
+
+.ledger {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.ledger thead th {
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.ledger-row td {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: top;
+  font-size: 14px;
+}
+
+.ledger-row:last-child td {
+  border-bottom: none;
+}
+
+.ledger-row:hover {
+  background: #FBFAF6;
+}
+
+.ledger-row__primary {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 180px;
+}
+
+.ledger-row__company {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ledger-row__role {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+
+.ledger-row__date {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.ledger-row__notes {
+  color: var(--ink-soft);
+  max-width: 260px;
+}
+
+.ledger-row__actions {
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* ---------- Status stamp (signature element) ---------- */
+
+.stamp {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  transform: rotate(var(--stamp-rotate, 0deg));
+  white-space: nowrap;
+}
+
+.stamp--applied { color: var(--applied); }
+.stamp--online_assessment { color: var(--oa); }
+.stamp--interview { color: var(--interview); }
+.stamp--offer { color: var(--offer); }
+.stamp--rejected { color: var(--rejected); }
+
+.stamp--md { font-size: 11px; }
+
+/* ---------- Empty / loading / error states ---------- */
+
+.empty-state {
+  background: var(--paper-raised);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.empty-state__title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.empty-state__body {
+  color: var(--ink-soft);
+  margin: 0;
+  font-size: 14px;
+}
+
+.state-note {
+  color: var(--ink-soft);
+  font-size: 14px;
+  padding: 16px 0;
+}
+
+.state-note--error {
+  color: var(--rejected);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ---------- Modal ---------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(34, 48, 63, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 20;
+}
+
+.modal-card {
+  background: var(--paper-raised);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  padding: 28px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 12px 32px rgba(34, 48, 63, 0.2);
+}
+
+.modal-card--small {
+  max-width: 380px;
+}
+
+.modal-card__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0 0 18px;
+}
+
+.modal-card__body {
+  color: var(--ink-soft);
+  font-size: 14px;
+  margin: 0 0 22px;
+}
+
+.modal-card__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+/* ---------- Form ---------- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.field__label {
+  font-size: 12px;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.field input,
+.field select,
+.field textarea {
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  resize: vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--interview);
+}
+
+.field-row {
+  display: flex;
+  gap: 14px;
+}
+
+.field-error {
+  color: var(--rejected);
+  font-size: 13px;
+  margin: -6px 0 0;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .page {
+    padding: 28px 16px 60px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .stats {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .stats__divider {
+    display: none;
+  }
+
+  .ledger, .ledger thead, .ledger tbody, .ledger th, .ledger td, .ledger-row {
+    display: block;
+  }
+
+  .ledger thead {
+    display: none;
+  }
+
+  .ledger-row {
+    border-bottom: 1px solid var(--line);
+    padding: 14px 4px;
+  }
+
+  .ledger-row td {
+    border-bottom: none;
+    padding: 4px 14px;
+  }
+
+  .field-row {
+    flex-direction: column;
+  }
+}

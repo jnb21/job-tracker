@@ -28,7 +28,7 @@ A full-stack CRUD application for tracking internship and job applications — c
 
 - **Frontend:** React
 - **Backend:** FastAPI (Python)
-- **Database:** PostgreSQL/MySQL via SQLAlchemy
+- **Database:** PostgreSQL via psycopg2 (raw SQL)
 - **Migrations:** Alembic
 - **Auth:** JWT
 - **Testing:** pytest
@@ -41,8 +41,8 @@ job-tracker/
 ├── app/
 │   ├── main.py         # FastAPI app instance, mounts routers
 │   ├── config.py        # settings loaded from env vars
-│   ├── database.py      # DB engine, session, get_db() dependency
-│   ├── models/           # SQLAlchemy ORM models
+│   ├── database.py      # DB connection, get_db() dependency (psycopg2)
+│   ├── schema.sql        # raw SQL DDL for the database schema
 │   ├── schemas/           # Pydantic request/response shapes
 │   ├── routers/            # route handlers, one file per resource
 │   ├── services/             # business logic, called by routers

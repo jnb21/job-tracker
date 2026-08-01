@@ -1,4 +1,4 @@
-def create_application(conn, data, user_id: int = 1):
+def create_application(conn, data, user_id: int):
     with conn.cursor() as cur:
         cur.execute(
             """
@@ -12,7 +12,7 @@ def create_application(conn, data, user_id: int = 1):
         conn.commit()
         return row
 
-def list_applications(conn, user_id: int = 1):
+def list_applications(conn, user_id: int):
     with conn.cursor() as cur:
         cur.execute(
             "SELECT id, user_id, company, role, status, notes, applied_date, created_at FROM applications WHERE user_id = %s ORDER BY created_at DESC",
@@ -20,7 +20,7 @@ def list_applications(conn, user_id: int = 1):
         )
         return cur.fetchall()
 
-def get_application(conn, application_id: int, user_id: int = 1):
+def get_application(conn, application_id: int, user_id: int):
     with conn.cursor() as cur:
         cur.execute(
             "SELECT id, user_id, company, role, status, notes, applied_date, created_at FROM applications WHERE id = %s AND user_id = %s",
@@ -28,7 +28,7 @@ def get_application(conn, application_id: int, user_id: int = 1):
         )
         return cur.fetchone()
 
-def update_application(conn, application_id: int, data, user_id: int = 1):
+def update_application(conn, application_id: int, data, user_id: int):
     with conn.cursor() as cur:
         cur.execute(
             """
@@ -43,7 +43,7 @@ def update_application(conn, application_id: int, data, user_id: int = 1):
         conn.commit()
         return row
 
-def delete_application(conn, application_id: int, user_id: int = 1):
+def delete_application(conn, application_id: int, user_id: int):
     with conn.cursor() as cur:
         cur.execute(
             "DELETE FROM applications WHERE id = %s AND user_id = %s RETURNING id",

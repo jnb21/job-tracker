@@ -1,3 +1,4 @@
+import psycopg2
 from fastapi import APIRouter, Depends, HTTPException
 from app.database import get_db
 from app.schemas.auth import UserRegister, UserOut, UserLogin, Token
@@ -11,7 +12,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 def register(data: UserRegister, conn=Depends(get_db)):
     try:
         return service.register_user(conn, data)
-    except Exception:
+    except psycopg2.errors.UniqueViolation:
         conn.rollback()
         raise HTTPException(status_code=400, detail="Email already registered")
 

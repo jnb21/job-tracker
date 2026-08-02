@@ -1,0 +1,40 @@
+databases:
+  - name: job-tracker-db
+    databaseName: job_tracker
+    user: jobtracker
+    plan: free
+    postgresMajorVersion: "17"
+
+services:
+  - name: job-tracker-api
+    type: web
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: job-tracker-db
+          property: connectionString
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_EXPIRE_MINUTES
+        value: "60"
+      - key: CORS_ORIGINS
+        value: https://job-tracker-frontend.onrender.com
+
+  - name: job-tracker-frontend
+    type: web
+    runtime: static
+    buildCommand: cd frontend && npm ci && npm run build
+    staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://job-tracker-api.onrender.com
+    routes:
+      - src: ^/.*
+        dest: /index.html

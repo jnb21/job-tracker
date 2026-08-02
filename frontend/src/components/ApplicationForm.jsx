@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { STATUSES } from '../data/mockApplications';
+import { STATUSES } from '../data/statuses';
 
 const EMPTY = {
   company: '',

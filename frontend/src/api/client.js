@@ -1,67 +1,84 @@
-// Single point of contact with the backend.
-//
-// Right now the FastAPI backend only exposes /health, so USE_MOCK is on and
-// every function reads/writes the in-memory mock store instead. Once the
-// real /applications routes exist on the backend, set USE_MOCK to false (or
-// delete the mock branch) — no component code needs to change, since every
-// component only calls the functions exported from this file.
+// Single point of contact with the backend. No component talks to fetch()
+// directly — everything goes through the functions exported here.
 
-import { _getAll, _create, _update, _remove } from '../data/mockApplications';
-
-const USE_MOCK = true;
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const TOKEN_KEY = 'job_tracker_token';
+
+export function getToken() {
+  return localStorage.getItem(TOKEN_KEY);
+}
+
+export function setToken(token) {
+  localStorage.setItem(TOKEN_KEY, token);
+}
+
+export function clearToken() {
+  localStorage.removeItem(TOKEN_KEY);
+}
 
 async function request(path, options = {}) {
+  const token = getToken();
   const res = await fetch(`${BASE_URL}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
     ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...options.headers,
+    },
   });
   if (!res.ok) {
-    const body = await res.text().catch(() => '');
-    throw new Error(`${res.status} ${res.statusText}: ${body}`);
+    const body = await res.json().catch(() => ({}));
+    const message = typeof body.detail === 'string' ? body.detail : `${res.status} ${res.statusText}`;
+    const err = new Error(message);
+    err.status = res.status;
+    throw err;
   }
   if (res.status === 204) return null;
   return res.json();
 }
 
-function delay(ms = 250) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+// --- Auth ---
+
+export function registerUser(email, password) {
+  return request('/auth/register', {
+    method: 'POST',
+    body: JSON.stringify({ email, password }),
+  });
 }
 
-export async function fetchApplications() {
-  if (USE_MOCK) {
-    await delay();
-    return _getAll();
-  }
-  return request('/applications');
+export async function login(email, password) {
+  const { access_token } = await request('/auth/login', {
+    method: 'POST',
+    body: JSON.stringify({ email, password }),
+  });
+  setToken(access_token);
+  return access_token;
 }
 
-export async function createApplication(payload) {
-  if (USE_MOCK) {
-    await delay();
-    return _create(payload);
-  }
-  return request('/applications', {
+export function fetchMe() {
+  return request('/auth/me');
+}
+
+// --- Applications ---
+
+export function fetchApplications() {
+  return request('/applications/');
+}
+
+export function createApplication(payload) {
+  return request('/applications/', {
     method: 'POST',
     body: JSON.stringify(payload),
   });
 }
 
-export async function updateApplication(id, payload) {
-  if (USE_MOCK) {
-    await delay();
-    return _update(id, payload);
-  }
+export function updateApplication(id, payload) {
   return request(`/applications/${id}`, {
-    method: 'PATCH',
+    method: 'PUT',
     body: JSON.stringify(payload),
   });
 }
 
-export async function deleteApplication(id) {
-  if (USE_MOCK) {
-    await delay();
-    return _remove(id);
-  }
+export function deleteApplication(id) {
   return request(`/applications/${id}`, { method: 'DELETE' });
 }

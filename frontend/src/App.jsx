@@ -4,8 +4,11 @@ import {
   createApplication,
   updateApplication,
   deleteApplication,
+  getToken,
+  clearToken,
 } from './api/client';
-import { STATUSES } from './data/mockApplications';
+import { STATUSES } from './data/statuses';
+import Login from './components/Login';
 import StatsBar from './components/StatsBar';
 import StatusFilter from './components/StatusFilter';
 import ApplicationTable from './components/ApplicationTable';
@@ -13,6 +16,7 @@ import ApplicationForm from './components/ApplicationForm';
 import './App.css';
 
 export default function App() {
+  const [token, setToken] = useState(getToken());
   const [applications, setApplications] = useState([]);
   const [status, setStatus] = useState('loading'); // loading | ready | error
   const [errorMessage, setErrorMessage] = useState('');
@@ -21,8 +25,17 @@ export default function App() {
   const [pendingDelete, setPendingDelete] = useState(null);
 
   useEffect(() => {
-    load();
-  }, []);
+    if (token) load();
+  }, [token]);
+
+  function handleAuthError(err) {
+    if (err.status === 401) {
+      clearToken();
+      setToken(null);
+      return true;
+    }
+    return false;
+  }
 
   async function load() {
     setStatus('loading');
@@ -31,9 +44,16 @@ export default function App() {
       setApplications(data);
       setStatus('ready');
     } catch (err) {
+      if (handleAuthError(err)) return;
       setErrorMessage(err.message || 'Could not reach the server.');
       setStatus('error');
     }
+  }
+
+  function handleLogout() {
+    clearToken();
+    setToken(null);
+    setApplications([]);
   }
 
   const counts = useMemo(() => {
@@ -50,27 +70,41 @@ export default function App() {
         ? applications
         : applications.filter((a) => a.status === activeFilter);
     return [...rows].sort(
-      (a, b) => new Date(b.applied_date) - new Date(a.applied_date)
+      (a, b) => new Date(b.created_at) - new Date(a.created_at)
     );
   }, [applications, activeFilter]);
 
   async function handleFormSubmit(values) {
-    if (editingApp && editingApp.id) {
-      const updated = await updateApplication(editingApp.id, values);
-      setApplications((prev) =>
-        prev.map((a) => (a.id === updated.id ? updated : a))
-      );
-    } else {
-      const created = await createApplication(values);
-      setApplications((prev) => [created, ...prev]);
+    try {
+      if (editingApp && editingApp.id) {
+        const updated = await updateApplication(editingApp.id, values);
+        setApplications((prev) =>
+          prev.map((a) => (a.id === updated.id ? updated : a))
+        );
+      } else {
+        const created = await createApplication(values);
+        setApplications((prev) => [created, ...prev]);
+      }
+      setEditingApp(null);
+    } catch (err) {
+      if (handleAuthError(err)) return;
+      throw err;
     }
-    setEditingApp(null);
   }
 
   async function confirmDelete() {
-    await deleteApplication(pendingDelete.id);
-    setApplications((prev) => prev.filter((a) => a.id !== pendingDelete.id));
-    setPendingDelete(null);
+    try {
+      await deleteApplication(pendingDelete.id);
+      setApplications((prev) => prev.filter((a) => a.id !== pendingDelete.id));
+      setPendingDelete(null);
+    } catch (err) {
+      if (handleAuthError(err)) return;
+      throw err;
+    }
+  }
+
+  if (!token) {
+    return <Login onSuccess={() => setToken(getToken())} />;
   }
 
   return (
@@ -80,13 +114,18 @@ export default function App() {
           <p className="page-header__eyebrow">Application Ledger</p>
           <h1 className="page-header__title">Where every application stands</h1>
         </div>
-        <button
-          type="button"
-          className="btn btn--primary"
-          onClick={() => setEditingApp({})}
-        >
-          + Log application
-        </button>
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <button
+            type="button"
+            className="btn btn--primary"
+            onClick={() => setEditingApp({})}
+          >
+            + Log application
+          </button>
+          <button type="button" className="link-btn" onClick={handleLogout}>
+            Log out
+          </button>
+        </div>
       </header>
 
       {status === 'loading' && <p className="state-note">Loading your ledger…</p>}

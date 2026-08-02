@@ -1,4 +1,4 @@
-import { STATUSES } from '../data/mockApplications';
+import { STATUSES } from '../data/statuses';
 
 export default function StatsBar({ applications }) {
   const total = applications.length;

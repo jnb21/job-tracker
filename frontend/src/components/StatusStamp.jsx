@@ -1,4 +1,4 @@
-import { STATUSES } from '../data/mockApplications';
+import { STATUSES } from '../data/statuses';
 
 const LABELS = Object.fromEntries(STATUSES.map((s) => [s.value, s.label]));
 

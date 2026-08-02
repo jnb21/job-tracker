@@ -6,7 +6,7 @@ databases:
     postgresMajorVersion: "17"
 
 services:
-  - name: job-tracker-api
+  - name: jbikong-job-tracker-api
     type: web
     runtime: docker
     dockerfilePath: ./Dockerfile
@@ -25,16 +25,16 @@ services:
       - key: JWT_EXPIRE_MINUTES
         value: "60"
       - key: CORS_ORIGINS
-        value: https://job-tracker-frontend.onrender.com
+        value: https://jbikong-job-tracker-web.onrender.com
 
-  - name: job-tracker-frontend
+  - name: jbikong-job-tracker-web
     type: web
     runtime: static
     buildCommand: cd frontend && npm ci && npm run build
     staticPublishPath: ./frontend/dist
     envVars:
       - key: VITE_API_URL
-        value: https://job-tracker-api.onrender.com
+        value: https://jbikong-job-tracker-api.onrender.com
     routes:
       - src: ^/.*
         dest: /index.html

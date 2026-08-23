@@ -97,3 +97,18 @@ jobs:
 
       - name: Build web image
         run: docker build -t job-tracker-web:ci ./frontend
+
+  deploy:
+    needs: [backend, frontend, docker-build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render deploy - API
+        run: curl -fsS -X POST "$RENDER_DEPLOY_HOOK_API"
+        env:
+          RENDER_DEPLOY_HOOK_API: ${{ secrets.RENDER_DEPLOY_HOOK_API }}
+
+      - name: Trigger Render deploy - web
+        run: curl -fsS -X POST "$RENDER_DEPLOY_HOOK_WEB"
+        env:
+          RENDER_DEPLOY_HOOK_WEB: ${{ secrets.RENDER_DEPLOY_HOOK_WEB }}

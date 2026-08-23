@@ -12,6 +12,7 @@ services:
     dockerfilePath: ./Dockerfile
     dockerContext: .
     plan: free
+    autoDeploy: false
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
@@ -32,6 +33,7 @@ services:
     runtime: static
     buildCommand: cd frontend && npm ci && npm run build
     staticPublishPath: ./frontend/dist
+    autoDeploy: false
     envVars:
       - key: VITE_API_URL
         value: https://jbikong-job-tracker-api.onrender.com

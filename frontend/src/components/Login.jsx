@@ -25,6 +25,19 @@ export default function Login({ onSuccess }) {
     }
   }
 
+  async function handleDemoLogin() {
+    setError('');
+    setBusy(true);
+    try {
+      await login('demo@example.com', 'demo1234');
+      onSuccess();
+    } catch (err) {
+      setError(err.message || 'Something went wrong.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <div className="page auth-screen">
       <div className="modal-card auth-card">
@@ -75,6 +88,16 @@ export default function Login({ onSuccess }) {
         >
           {mode === 'login' ? "Need an account? Register" : 'Already have an account? Log in'}
         </button>
+
+        <div className="auth-card__demo">
+          <button type="button" className="btn btn--ghost" onClick={handleDemoLogin} disabled={busy}>
+            {busy ? 'Please wait…' : 'Try the demo'}
+          </button>
+          <p className="field-hint">
+            No sign-up needed — logs in as demo@example.com with sample data.
+            Hosted on a free tier, so the first request after inactivity can take ~30s to wake up.
+          </p>
+        </div>
       </div>
     </div>
   );

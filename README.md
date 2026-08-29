@@ -2,6 +2,19 @@
 
 A full-stack CRUD application for tracking internship and job applications — companies, roles, application status, deadlines, interviews, and notes. Doubles as a real tool for tracking actual Summer 2027 applications while being built.
 
+**Live demo:** https://jbikong-job-tracker-web.onrender.com
+
+> ⏳ **Cold start warning:** The API is hosted on Render's free tier, which spins down after 15 minutes of inactivity. The first request can take **30–60 seconds** to wake it up — if the login button looks like it's hanging, that's why. Just wait, don't refresh.
+
+**Try it without registering:** click **"Try the demo"** on the login screen, or log in manually with:
+
+| | |
+| --- | --- |
+| Email | `demo@example.com` |
+| Password | `demo1234` |
+
+![App screenshot](docs/screenshot.png)
+
 ## Table of contents
 
 - [Features](#features)
@@ -11,6 +24,7 @@ A full-stack CRUD application for tracking internship and job applications — c
 - [Environment variables](#environment-variables)
 - [Running with Docker](#running-with-docker)
 - [Database migrations](#database-migrations)
+- [Demo account seeding](#demo-account-seeding)
 - [API overview](#api-overview)
 - [Testing](#testing)
 - [Roadmap](#roadmap)
@@ -110,6 +124,16 @@ This starts the API and database together for local development.
 alembic revision --autogenerate -m "description of change"
 alembic upgrade head
 ```
+
+## Demo account seeding
+
+The `demo@example.com` / `demo1234` account used by the "Try the demo" button is created by `app/seed_demo.py`. It's idempotent — safe to rerun any time to reset the demo data:
+
+```bash
+python -m app.seed_demo
+```
+
+By default it uses whatever `DATABASE_URL` the API is configured with, so it can be pointed at local Docker Compose or the production database.
 
 ## API overview
 

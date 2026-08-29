@@ -332,6 +332,23 @@
   text-align: center;
 }
 
+.auth-card__demo {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.auth-card__demo .btn {
+  width: 100%;
+}
+
+.field-hint {
+  color: var(--ink-soft);
+  font-size: 12px;
+  margin: 10px 0 0;
+}
+
 /* ---------- Modal ---------- */
 
 .modal-backdrop {

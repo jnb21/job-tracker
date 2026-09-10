@@ -15,10 +15,14 @@ class ApplicationCreate(BaseModel):
     company: str
     role: str
     status: ApplicationStatus = ApplicationStatus.applied
+    location: Optional[str] = None
+    platform: Optional[str] = None
     notes: Optional[str] = None
 
 class ApplicationUpdate(BaseModel):
     company: str
     role: str
     status: ApplicationStatus
+    location: Optional[str] = None
+    platform: Optional[str] = None
     notes: Optional[str] = None

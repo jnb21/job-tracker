@@ -14,6 +14,8 @@ export default function ApplicationRow({ application, onEdit, onDelete }) {
         <span className="ledger-row__role">{application.role}</span>
       </td>
       <td className="ledger-row__date">{formatDate(application.applied_date)}</td>
+      <td>{application.location || '—'}</td>
+      <td>{application.platform || '—'}</td>
       <td>
         <StatusStamp status={application.status} />
       </td>

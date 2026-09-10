@@ -16,7 +16,12 @@ CREATE TABLE IF NOT EXISTS applications (
     role VARCHAR NOT NULL,
     status application_status NOT NULL DEFAULT 'applied',
     applied_date TIMESTAMPTZ,
+    location VARCHAR,
+    platform VARCHAR,
     notes TEXT,
     created_at TIMESTAMPTZ DEFAULT now(),
     updated_at TIMESTAMPTZ
 );
+
+ALTER TABLE applications ADD COLUMN IF NOT EXISTS location VARCHAR;
+ALTER TABLE applications ADD COLUMN IF NOT EXISTS platform VARCHAR;

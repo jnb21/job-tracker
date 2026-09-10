@@ -6,6 +6,8 @@ const EMPTY = {
   role: '',
   status: 'applied',
   applied_date: new Date().toISOString().slice(0, 10),
+  location: '',
+  platform: '',
   notes: '',
 };
 
@@ -87,6 +89,28 @@ export default function ApplicationForm({ initial, onSubmit, onCancel }) {
                 type="date"
                 value={values.applied_date}
                 onChange={handleChange('applied_date')}
+              />
+            </label>
+          </div>
+
+          <div className="field-row">
+            <label className="field">
+              <span className="field__label">Location</span>
+              <input
+                type="text"
+                value={values.location}
+                onChange={handleChange('location')}
+                placeholder="Remote, Toronto, ON"
+              />
+            </label>
+
+            <label className="field">
+              <span className="field__label">Platform</span>
+              <input
+                type="text"
+                value={values.platform}
+                onChange={handleChange('platform')}
+                placeholder="LinkedIn, company site, referral"
               />
             </label>
           </div>

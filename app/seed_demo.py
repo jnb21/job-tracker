@@ -15,11 +15,11 @@ DEMO_EMAIL = "demo@example.com"
 DEMO_PASSWORD = "demo1234"
 
 SAMPLE_APPLICATIONS = [
-    ("Stripe", "Backend Engineer Intern", "interview", "Onsite loop scheduled for next week."),
-    ("Shopify", "Software Developer Intern", "online_assessment", "OA due Friday."),
-    ("Coinbase", "Platform Engineer Intern", "applied", "Referral submitted via alumni network."),
-    ("Notion", "Full Stack Intern", "offer", "Offer received, deciding by end of month."),
-    ("Palantir", "Forward Deployed Engineer Intern", "rejected", "Rejected after phone screen."),
+    ("Stripe", "Backend Engineer Intern", "interview", "Remote", "Company site", "Onsite loop scheduled for next week."),
+    ("Shopify", "Software Developer Intern", "online_assessment", "Toronto, ON", "LinkedIn", "OA due Friday."),
+    ("Coinbase", "Platform Engineer Intern", "applied", "Remote", "Referral", "Referral submitted via alumni network."),
+    ("Notion", "Full Stack Intern", "offer", "San Francisco, CA", "Handshake", "Offer received, deciding by end of month."),
+    ("Palantir", "Forward Deployed Engineer Intern", "rejected", "New York, NY", "Company site", "Rejected after phone screen."),
 ]
 
 
@@ -39,13 +39,13 @@ def seed():
             user_id = cur.fetchone()["id"]
 
             cur.execute("DELETE FROM applications WHERE user_id = %s", (user_id,))
-            for company, role, status, notes in SAMPLE_APPLICATIONS:
+            for company, role, status, location, platform, notes in SAMPLE_APPLICATIONS:
                 cur.execute(
                     """
-                    INSERT INTO applications (user_id, company, role, status, notes, applied_date)
-                    VALUES (%s, %s, %s, %s, %s, now())
+                    INSERT INTO applications (user_id, company, role, status, location, platform, notes, applied_date)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, now())
                     """,
-                    (user_id, company, role, status, notes),
+                    (user_id, company, role, status, location, platform, notes),
                 )
         conn.commit()
         print(f"Seeded demo user '{DEMO_EMAIL}' with {len(SAMPLE_APPLICATIONS)} sample applications.")

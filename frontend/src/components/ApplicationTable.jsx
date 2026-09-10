@@ -18,6 +18,8 @@ export default function ApplicationTable({ applications, onEdit, onDelete }) {
         <tr>
           <th>Company / Role</th>
           <th>Applied</th>
+          <th>Location</th>
+          <th>Platform</th>
           <th>Status</th>
           <th>Notes</th>
           <th aria-label="Actions" />

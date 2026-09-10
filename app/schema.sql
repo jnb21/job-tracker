@@ -5,9 +5,14 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE TYPE application_status AS ENUM (
-    'applied', 'online_assessment', 'interview', 'offer', 'rejected'
-);
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'application_status') THEN
+        CREATE TYPE application_status AS ENUM (
+            'applied', 'online_assessment', 'interview', 'offer', 'rejected'
+        );
+    END IF;
+END$$;
 
 CREATE TABLE IF NOT EXISTS applications (
     id SERIAL PRIMARY KEY,

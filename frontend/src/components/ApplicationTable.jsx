@@ -16,8 +16,8 @@ export default function ApplicationTable({ applications, onEdit, onDelete }) {
     <table className="ledger">
       <thead>
         <tr>
-          <th>Company / Role</th>
-          <th>Applied</th>
+          <th>Company</th>
+          <th>Role</th>
           <th>Location</th>
           <th>Platform</th>
           <th>Status</th>

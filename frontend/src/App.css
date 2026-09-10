@@ -217,27 +217,14 @@
   background: #FBFAF6;
 }
 
-.ledger-row__primary {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 180px;
-}
-
 .ledger-row__company {
   font-family: var(--font-display);
   font-weight: 600;
   color: var(--ink);
+  white-space: nowrap;
 }
 
 .ledger-row__role {
-  font-size: 12.5px;
-  color: var(--ink-soft);
-}
-
-.ledger-row__date {
-  font-family: var(--font-mono);
-  font-size: 12.5px;
   color: var(--ink-soft);
   white-space: nowrap;
 }
@@ -420,6 +407,8 @@
 .field input,
 .field select,
 .field textarea {
+  width: 100%;
+  box-sizing: border-box;
   font-family: var(--font-body);
   font-size: 14px;
   padding: 9px 12px;

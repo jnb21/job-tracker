@@ -34,19 +34,14 @@
 
 .page-header__eyebrow {
   margin: 0 0 4px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 13px;
   color: var(--ink-soft);
 }
 
 .page-header__title {
   margin: 0;
-  font-family: var(--font-display);
   font-weight: 600;
-  font-size: 32px;
-  letter-spacing: -0.01em;
+  font-size: 28px;
   color: var(--ink);
 }
 
@@ -137,8 +132,7 @@
 }
 
 .stats__number {
-  font-family: var(--font-display);
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
   color: var(--ink);
 }
@@ -167,10 +161,9 @@
 .filter-chip {
   border: 1px solid var(--line);
   background: transparent;
-  border-radius: 999px;
+  border-radius: var(--radius);
   padding: 6px 14px;
   font-size: 13px;
-  font-family: var(--font-body);
   color: var(--ink-soft);
   cursor: pointer;
   display: inline-flex;
@@ -190,7 +183,6 @@
 }
 
 .filter-chip__count {
-  font-family: var(--font-mono);
   font-size: 11px;
   opacity: 0.75;
 }
@@ -200,26 +192,19 @@
 .ledger {
   width: 100%;
   border-collapse: collapse;
-  background: var(--paper-raised);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
 }
 
 .ledger thead th {
   text-align: left;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 13px;
   color: var(--ink-soft);
   font-weight: 500;
-  padding: 12px 18px;
+  padding: 10px 12px;
   border-bottom: 1px solid var(--line);
-  background: var(--paper);
 }
 
 .ledger-row td {
-  padding: 16px 18px;
+  padding: 14px 12px;
   border-bottom: 1px solid var(--line-soft);
   vertical-align: top;
   font-size: 14px;
@@ -230,11 +215,10 @@
 }
 
 .ledger-row:hover {
-  background: #F5F5F5;
+  background: var(--paper-raised);
 }
 
 .ledger-row__company {
-  font-family: var(--font-display);
   font-weight: 600;
   color: var(--ink);
   white-space: nowrap;
@@ -255,19 +239,12 @@
   text-align: right;
 }
 
-/* ---------- Status stamp (signature element) ---------- */
+/* ---------- Status label ---------- */
 
 .stamp {
   display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border: 1.5px solid currentColor;
-  border-radius: 3px;
-  transform: rotate(var(--stamp-rotate, 0deg));
   white-space: nowrap;
 }
 
@@ -277,7 +254,7 @@
 .stamp--offer { color: var(--offer); }
 .stamp--rejected { color: var(--rejected); }
 
-.stamp--md { font-size: 11px; }
+.stamp--md { font-size: 13px; }
 
 /* ---------- Empty / loading / error states ---------- */
 
@@ -290,7 +267,6 @@
 }
 
 .empty-state__title {
-  font-family: var(--font-display);
   font-size: 18px;
   font-weight: 600;
   margin: 0 0 6px;
@@ -379,7 +355,6 @@
 }
 
 .modal-card__title {
-  font-family: var(--font-display);
   font-weight: 600;
   font-size: 20px;
   margin: 0 0 18px;
@@ -568,7 +543,6 @@
 }
 
 .legal-page__body section h2 {
-  font-family: var(--font-display);
   font-weight: 600;
   font-size: 20px;
   color: var(--ink);

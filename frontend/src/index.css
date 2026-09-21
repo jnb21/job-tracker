@@ -12,9 +12,9 @@
   --offer: #3F8F5F;
   --rejected: #B15C4A;
 
-  --font-display: 'Fraunces', Georgia, serif;
+  --font-display: 'Inter', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-mono: ui-monospace, 'SFMono-Regular', Consolas, monospace;
 
   --radius: 4px;
   color-scheme: light;

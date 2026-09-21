@@ -2,6 +2,22 @@
   max-width: 960px;
   margin: 0 auto;
   padding: 48px 24px 80px;
+  width: 100%;
+  flex: 1;
+}
+
+/* ---------- App shell ---------- */
+
+.app-shell {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-shell__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ---------- Header ---------- */
@@ -302,7 +318,6 @@
 /* ---------- Auth screen ---------- */
 
 .auth-screen {
-  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -479,4 +494,124 @@
   .field-row {
     flex-direction: column;
   }
+
+  .site-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .site-footer__links {
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  background: var(--paper-raised);
+}
+
+.site-footer__inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.site-footer__copyright {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.site-footer__links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.site-footer__links a {
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.site-footer__links a:hover {
+  color: var(--ink);
+}
+
+/* ---------- Legal pages ---------- */
+
+.legal-page__header {
+  border-bottom: 1px solid var(--line);
+}
+
+.legal-page__updated {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.legal-page__body {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 720px;
+}
+
+.legal-page__body section h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+
+.legal-page__body section p,
+.legal-page__body section li {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.legal-page__body section p {
+  margin: 0 0 12px;
+}
+
+.legal-page__body section p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-page__body section ul {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legal-page__body section a {
+  color: var(--interview);
+}
+
+.legal-page__body section code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--paper);
+  border: 1px solid var(--line-soft);
+  border-radius: 3px;
+  padding: 1px 5px;
+}
+
+.legal-page__back {
+  display: inline-block;
+  margin-top: 40px;
 }

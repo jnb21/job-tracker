@@ -1,10 +1,10 @@
 :root {
-  --paper: #EEEBE3;
-  --paper-raised: #F8F6F0;
-  --ink: #22303F;
-  --ink-soft: #4C5F70;
-  --line: #C9C2AF;
-  --line-soft: #DAD4C4;
+  --paper: #FFFFFF;
+  --paper-raised: #F7F7F7;
+  --ink: #111111;
+  --ink-soft: #5A5A5A;
+  --line: #DDDDDD;
+  --line-soft: #EAEAEA;
 
   --applied: #7C8CA6;
   --oa: #B9862F;

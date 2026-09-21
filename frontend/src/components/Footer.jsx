@@ -15,13 +15,6 @@ export default function Footer() {
           <Link to="/terms">Terms of Service</Link>
           <Link to="/cookie-policy">Cookie Policy</Link>
           <Link to="/contact">Contact</Link>
-          <a
-            href="https://github.com/jnb21/job-tracker"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Source on GitHub
-          </a>
         </nav>
       </div>
     </footer>
